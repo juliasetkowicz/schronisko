@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<div class="text-center">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="btn btn-outline-secondary" asp-area="Identity" asp-page="/Account/Manage/Index">@User.Identity.Name</a>
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout">
+            <button type="submit" class="btn btn-outline-success">Zaloguj</button>
+        </form>
+    }
+    else
+    {
+        <a class="btn btn-outline-success" asp-area="Identity" asp-page="/Account/Login">Zaloguj admina</a>
+        <a class="btn btn-outline-secondary" asp-area="Identity" asp-page="/Account/Register">Zarejestruj admina</a>
+    }
+</div>

@@ -1,0 +1,57 @@
+﻿@model System.Collections.Generic.IEnumerable<Schronisko.Entities.Dog>
+
+@{
+    ViewData["Title"] = "Psy";
+}
+
+<div class="col-md-12">
+    <h1>Psy</h1>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>
+                <b>Imię</b>
+            </th>
+            <th>
+                <b>Zdjęcie</b>
+            </th>
+            <th>
+                <b>Numer telefonu</b>
+            </th>
+            <th>
+                <b>Wiek (msc)</b>
+            </th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th>
+                    <b>Opcje</b>
+                </th>
+            }
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <img src="@item.Photo" alt="Cat Photo" style="max-width: 250px; max-height: 250px"/>
+                </td>
+                <td>@item.Phone</td>
+                <td>@item.Age</td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-outline-success btn-block">Edytuj</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-block" onclick="return confirm('Potwierdź usunięcie')">Usuń</a>
+                    </td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-action="Create" class="btn btn-outline-success btn-block">Dodaj</a>
+    }
+</div>
